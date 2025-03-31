@@ -31,7 +31,7 @@ export const crime: Command = {
       });
       return;
     }
-    LogService.logCrime(reporter.id, target.user?.id, reason?.value);
+    LogService.log(reporter.id, target.user?.id, reason?.value);
 
     const crimeEmbed = createCrimeEmbed(reporter, target.user, String(reason.value));
     
