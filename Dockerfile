@@ -16,7 +16,8 @@ COPY tsconfig.json ./
 COPY prisma ./prisma
 COPY src ./src
 RUN pnpm build && \
-    pnpm prune --prod --no-optional --ignore-scripts
+    pnpm prune --prod --no-optional --ignore-scripts && \
+    cp -al ./src/generated/client/*-linux-musl-*.so.node ./dist/generated/client/
 
 # -------------
 # runtime layer
