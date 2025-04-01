@@ -9,7 +9,7 @@ FROM base AS builder
 WORKDIR /src
 
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --ignore-scripts
 
 COPY tsconfig.json ./
 COPY prisma ./prisma
