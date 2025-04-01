@@ -6,11 +6,12 @@ import { crime } from './commands/crime.js';
 import { ready } from './events/ready.js';
 import { Events,  } from 'discord.js';
 import { environment } from './config/environment.js';
+import { stats } from './commands/stats.js';
 
 client.commands.set(crime.data.name, crime);
+client.commands.set(stats.data.name, stats);
 
 client.once(ready.name, (...args) => ready.execute(...args));
-
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
@@ -46,7 +47,7 @@ async function deployCommands() {
     console.log('Iniciando registro de comandos de aplicação (/)...');
 
     const rest = new REST({ version: '10' }).setToken(environment.token);
-    const commandsJSON = [crime.data.toJSON()];
+    const commandsJSON = [crime.data.toJSON(), stats.data.toJSON()];
 
     if (environment.guildId) {
       await rest.put(
