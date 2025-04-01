@@ -4,11 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "start": "pnpm db:deploy && node dist/index.js",
+    "build": "prisma generate && tsc",
+    "start": "prisma migrate deploy && node dist/index.js",
     "dev": "tsx src/index.ts",
-    "watch": "tsx watch src/index.ts",
-    "db:deploy": "prisma migrate deploy && prisma generate"
+    "watch": "tsx watch src/index.ts"
   },
   "dependencies": {
     "@discordjs/rest": "^2.4.3",
