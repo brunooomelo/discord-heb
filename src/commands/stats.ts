@@ -2,12 +2,13 @@ import {
   SlashCommandBuilder,
   ChatInputCommandInteraction,
   EmbedBuilder,
+  CommandInteraction,
 } from "discord.js";
 import { CrimeRepository } from "../repository/crime.repository";
 import { prisma } from "../config/database";
 import { Command } from "../@types/command";
 
-export const stats: Command<ChatInputCommandInteraction> = {
+export const stats: Command<CommandInteraction> = {
   data: new SlashCommandBuilder()
     .setName("stats")
     .setDescription("Mostra estatísticas criminais de um usuário")
@@ -20,7 +21,7 @@ export const stats: Command<ChatInputCommandInteraction> = {
         .setRequired(false)
     ),
 
-  async execute(interaction: ChatInputCommandInteraction) {
+  async execute(interaction: CommandInteraction) {
     const chatInteraction = interaction as ChatInputCommandInteraction;
     const target =
       chatInteraction.options.getUser("usuario") || chatInteraction.user;
@@ -41,7 +42,7 @@ export const stats: Command<ChatInputCommandInteraction> = {
         take: 5, // Pega os 5 mais recentes
         include: { reporter: true }, // Inclui o repórter
       });
-      
+
       console.log(recentCrimes)
       const embed = new EmbedBuilder()
         .setColor(crimeCount > 0 ? "#FF0000" : "#00FF00")
