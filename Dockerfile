@@ -16,7 +16,8 @@ RUN pnpm install --frozen-lockfile --ignore-scripts
 COPY prisma ./prisma
 COPY src ./src
 RUN pnpm build && pnpm prune --prod --no-optional --ignore-scripts && \
-    cp -al ./src/generated/client/*-linux-musl-*.so.node ./dist/generated/client/
+    find ./src/generated -type f \( -iname "*.ts" -o -iname "*.json" \) -delete && \
+    cp -al ./src/generated/ ./dist/generated/
 
 # -------------
 # runtime layer
