@@ -4,7 +4,8 @@ const schema = z.object({
   token: z.string(),
   clientId: z.string(),
   guildId: z.string(),
-  crimeChannelId: z.string()
+  crimeChannelId: z.string(),
+  ruleChannelId: z.string(),
 });
 
 const config = {
@@ -12,6 +13,7 @@ const config = {
   clientId: process.env.CLIENT_ID,
   guildId: process.env.GUILD_ID,
   crimeChannelId: process.env.CRIME_CHANNEL_ID,
+  ruleChannelId: process.env.RULE_CHANNEL_ID,
   ...process.env,
 };
 
