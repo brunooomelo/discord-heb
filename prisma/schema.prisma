@@ -28,3 +28,19 @@ model Crime {
   reporter    User     @relation("Reporter", fields: [reporterId], references: [id])
   criminal    User     @relation("Criminal", fields: [criminalId], references: [id])
 }
+
+model Rule {
+  id          Int      @id @default(autoincrement())
+  guildId     String   
+  ruleNumber  Int      
+  text        String 
+  addedBy     String   
+  addedByName String   
+  messageId   String?  
+  channelId   String?  
+  pinnedUrl   String?  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([guildId, ruleNumber])
+}

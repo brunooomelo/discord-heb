@@ -7,9 +7,16 @@ import { ready } from './events/ready.js';
 import { Events,  } from 'discord.js';
 import { environment } from './config/environment.js';
 import { stats } from './commands/stats.js';
+import { addRule, getRule } from './commands/add-rule.js';
 
-client.commands.set(crime.data.name, crime);
-client.commands.set(stats.data.name, stats);
+
+const cmds = [crime, stats,addRule,
+  getRule
+];
+
+cmds.forEach((cmd) => {
+  client.commands.set(cmd.data.name, cmd);
+})
 
 client.once(ready.name, (...args) => ready.execute(...args));
 client.on(Events.InteractionCreate, async (interaction) => {
@@ -47,7 +54,7 @@ async function deployCommands() {
     console.log('Iniciando registro de comandos de aplicação (/)...');
 
     const rest = new REST({ version: '10' }).setToken(environment.token);
-    const commandsJSON = [crime.data.toJSON(), stats.data.toJSON()];
+    const commandsJSON = cmds.map((command) => command.data.toJSON() )
 
     if (environment.guildId) {
       await rest.put(
